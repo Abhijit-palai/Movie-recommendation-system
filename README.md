@@ -16,6 +16,10 @@ Classifier served via FastAPI and visualized
 through an interactive Streamlit UI.
 
 ---
+## 🎥 Demo
+Watch the complete demo on LinkedIn:
+[Click here to watch demo](https://www.linkedin.com/posts/activity-7470048224964149248-Mjak?utm_source=share&utm_medium=member_desktop&rcm=ACoAAFK8NIsBNbdSFkRia3LoeGftpDCbtWNuwjo)
+---
 
 ## 🎯 Problem Statement
 With thousands of movies available, users struggle 
