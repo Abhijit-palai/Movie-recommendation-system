@@ -1,0 +1,88 @@
+Complete Project Architecture:
+┌─────────────────────────────────────────────────────────┐
+│                    ml.py (Training)                      │
+│                                                          │
+│  Load CSVs → Clean Data → Feature Engineering           │
+│       ↓                                                  │
+│  X (features) + Y (target)                              │
+│       ↓                                                  │
+│  Pipeline (preprocessor + XGBoost)                      │
+│       ↓                                                  │
+│  RandomizedSearchCV → Best Model                        │
+│       ↓                                                  │
+│  joblib.dump() → movie_recommendation_model.pkl ✅      │
+└─────────────────────────────────────────────────────────┘
+                         ↓
+                    .pkl file
+                         ↓
+┌─────────────────────────────────────────────────────────┐
+│                  main.py (FastAPI)                       │
+│                                                          │
+│  joblib.load('movie_recommendation_model.pkl')          │
+│       ↓                                                  │
+│  @app.get('/')  → Health Check                          │
+│       ↓                                                  │
+│  @app.post('/predict')                                   │
+│       ↓                                                  │
+│  Receives input → converts to DataFrame                 │
+│       ↓                                                  │
+│  model.predict(input_df)                                │
+│       ↓                                                  │
+│  Returns → {"prediction": 1,                            │
+│             "recommendation": "✅ Liked"}               │
+│                                                          │
+│  Running at → http://localhost:8000                     │
+└─────────────────────────────────────────────────────────┘
+                         ↑ ↓
+                    HTTP POST
+                    /predict
+                         ↑ ↓
+┌─────────────────────────────────────────────────────────┐
+│                  app.py (Streamlit)                      │
+│                                                          │
+│  User fills form:                                        │
+│  ┌─────────────────────────────────┐                    │
+│  │ Popularity      : [    21.9   ] │                    │
+│  │ Vote Average    : [    7.8    ] │                    │
+│  │ Vote Count      : [   1000   ]  │                    │
+│  │ Runtime         : [   120    ]  │                    │
+│  │ Revenue         : [  500000  ]  │                    │
+│  │ Budget          : [  100000  ]  │                    │
+│  │ Language        : [   en     ]  │                    │
+│  │ Status          : [ Released ]  │                    │
+│  └─────────────────────────────────┘                    │
+│       ↓                                                  │
+│  Click → [Get Recommendation]                           │
+│       ↓                                                  │
+│  requests.post('http://localhost:8000/predict',         │
+│                json={input data})                        │
+│       ↓                                                  │
+│  Receives response from FastAPI                         │
+│       ↓                                                  │
+│  Displays result:                                        │
+│  ┌─────────────────────────────────┐                    │
+│  │   ✅ This Movie is Liked!       │                    │
+│  └─────────────────────────────────┘                    │
+│                                                          │
+│  Running at → http://localhost:8501                     │
+└─────────────────────────────────────────────────────────┘
+
+Complete Flow in simple words:
+Step 1 → ml.py trains XGBoost model and saves as .pkl
+
+Step 2 → FastAPI loads .pkl file at startup
+
+Step 3 → User opens Streamlit at localhost:8501
+
+Step 4 → User fills movie details form
+
+Step 5 → Streamlit sends POST request to FastAPI at localhost:8000/predict
+
+Step 6 → FastAPI receives input, converts to DataFrame
+
+Step 7 → Model predicts 0 or 1
+
+Step 8 → FastAPI returns prediction to Streamlit
+
+Step 9 → Streamlit displays result to user
+

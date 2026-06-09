@@ -1,0 +1,38 @@
+# Python
+__pycache__/
+*.py[cod]
+*.pyo
+*.pyd
+.Python
+*.pyc
+
+# Virtual Environment
+fast-stream/
+venv/
+env/
+.env
+
+# Data files (too large for GitHub)
+data/raw/ratings.csv
+data/raw/*.csv
+*.csv
+
+# Model files (too large for GitHub)
+models/*.pkl
+*.pkl
+
+# Jupyter Notebooks checkpoints
+.ipynb_checkpoints/
+
+# Logs
+logs/
+*.log
+
+# IDE
+.vscode/
+.idea/
+*.code-workspace
+
+# OS
+.DS_Store
+Thumbs.db
