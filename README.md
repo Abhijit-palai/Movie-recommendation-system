@@ -125,7 +125,7 @@ MovieLens Dataset containing:
 ## ⚙️ Installation & Setup
 
 ### 1. Clone the repository
-git clone https://github.com/yourusername/movie-recommendation-system.git
+git clone https://github.com/Abhijit-palai/movie-recommendation-system.git
 cd movie-recommendation-system
 
 ### 2. Create virtual environment
